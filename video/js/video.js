@@ -1,43 +1,45 @@
 'use strict';
 
-var video=document.getElementById('video');
-var button=document.getElementById('button');
-var pB=document.getElementById('progressBar');
-button.classList.add('loading');
-video.load();
+var player={};
 
-video.addEventListener('canplaythrough',playPause,false);
-window.addEventListener('click',playPause,false);
-video.addEventListener('timeupdate',playProgress,false);
-pB.addEventListener('click',setVideoTime,false);
+player.video=document.getElementById('video');
+player.button=document.getElementById('button');
+player.pB=document.getElementById('progressBar');
+player.button.classList.add('loading');
+player.video.load();
 
-function setVideoTime (e) {
+player.setVideoTime = function(e) {
 	e.stopPropagation();
-	console.log(e); 
-	video.currentTime=e.offsetX*video.duration/this.offsetWidth;
+	//console.log(e); 
+	player.video.currentTime=e.offsetX*player.video.duration/this.offsetWidth;
 }
 
-
-function playProgress () {
+player.playProgress = function() {
 	var self=this;
 	var progress=self.currentTime*100/self.duration;
 	document.querySelector('.progress').style.width=progress+'%';
 }
 
-function playPause(e){
-	console.log(e); 
+player.playPause = function(e){
+	//console.log(e); 
 	if(e.type=='canplaythrough'){
-		video.removeEventListener('canplaythrough',playPause,false);
+		player.video.removeEventListener('canplaythrough',player.playPause,false);
 	}
-	
-	button.classList.remove('loading');
+	player.button.classList.remove('loading');
 	//var self=this;
-	if(video.paused){
-		video.play();
-		button.classList.add('play');
+	if(player.video.paused){
+		player.video.play();
+		player.button.classList.add('play');
 	}
 	else{
-		video.pause();
-		button.classList.remove('play');
+		player.video.pause();
+		player.button.classList.remove('play');
 	}
 }
+
+player.video.addEventListener('canplaythrough',player.playPause,false);
+window.addEventListener('click',player.playPause,false);
+player.video.addEventListener('timeupdate',player.playProgress,false);
+player.pB.addEventListener('click',player.setVideoTime,false);
+
+console.log(player); 
