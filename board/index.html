@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>My Board</title>
+	<meta name="description" content="">
+
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/board.css">
+
+</head>
+<body>
+  <section id="tools">
+    <div class="loader"></div>
+    <form id="addCard">
+      <input type="text" name="name" placeholder="next card title" autocomplete="off"/>
+      <input type="date" name="date" autocomplete="off"/>
+      <a href="" id="addLocation">[add geolocation]</a>
+      <input type="submit" value="+"/>
+      
+    </form> 
+         
+    <div id="map">
+      <form id="geocoder">
+        <input type="text" name="address" placeholder="your card location" />
+      </form>
+      <div></div>
+    </div> 
+  </section>
+  <section id="board">
+  </section>
+  <script src="js/board.js"></script>
+  <script src="js/boardUI.js"></script>
+  <script type="text/javascript">
+  "use strict";
+  var addCard=document.getElementById('addCard');
+  addCard.addEventListener('submit',recordCard,false);
+ 
+  board.init(function(datas){
+      console.log(datas);
+      for (var i in datas){
+        boardUI.render(datas[i],function(){console.log('rendeded');});
+      }
+    }
+  );
+  
+  function recordCard(e) {
+    e.preventDefault();
+    var title=document.querySelector("input[name='name']").value;
+    var date=document.querySelector("input[name='date']").value;
+    if(!title){
+      return false;
+    }
+    if(!date){
+  		var newDate=new Date().getTime();
+  	}
+  	else{
+  		var newDate=new Date(date).getTime();
+  	}
+    board.record({title:title,date:newDate},function(datas){
+      console.log('card recorded'); 
+      boardUI.render(datas,function(){console.log('card rendered');})
+    });
+  }
+  
+  function deleteCard(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var self=this;
+    var key=this.getAttribute('data-key');
+  	board.delete(key,function(){
+  	  boardUI.delete(key);
+  	});
+  }
+  
+  /*$('#addCard').on('submit',function(e){
+  	e.preventDefault();
+  	var title=$("input[name='name']");
+  	var date=$("input[name='date']");
+  	if(!title.val()){
+  		return false;
+  	}
+  	if(!date.val()){
+  		var newDate=new Date().getTime();
+  	}
+  	else{
+  		var newDate=new Date(date.val()).getTime();
+  	}
+  	board.datas={title:title.val(),date:newDate};
+  	if(localize.userPos){
+  		board.datas.userPos={lat:localize.userPos.latitude,lng:localize.userPos.longitude};
+  	}
+  	if(localize.destPos){
+  		board.datas.destPos={lat:localize.destPos.lat(),lng:localize.destPos.lng()};
+  	}
+  	board.record(board.datas);
+
+  	date.val('');
+  	title.val('');
+  	$('#map').removeClass('on');
+
+  });*/
+  
+
+  
+  
+    
+  
+  
+  </script>
+	
+</body>
+</html>
+
+
+
+
+
+
+
+
