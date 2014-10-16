@@ -13,8 +13,22 @@ var model={
 		}
 	},
 	
-	delete:function(){
-		// do stuff...
+	delete:function(key,callback){
+		localStorage.removeItem(key);
+		if(!localStorage.getItem(key)){
+			callback.call(this);
+		}
+		
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
