@@ -2,8 +2,10 @@
 
 var model={
 	
-	init:function(){
-		// do stuff...
+	init:function(callback){
+		for(var i in localStorage){
+			callback.call(this,JSON.parse(localStorage.getItem(i))); 
+		} 
 	},
 	
 	add:function(card,callback){

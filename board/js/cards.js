@@ -4,6 +4,10 @@ var card={};
 var addCard=document.getElementById('addCard');
 addCard.addEventListener('submit',getCard,false);
 
+model.init(function(card){
+	UI.render(card);
+});
+
 function getCard (e) {
 	e.preventDefault();
   var name=document.querySelector("input[name='name']").value;
@@ -16,9 +20,7 @@ function getCard (e) {
 	model.add(card,function(){
 		//render UI
 		console.log('added');
-		UI.render(card,function(deleteButton){
-			deleteButton.addEventListener('click',deleteCard,false);
-		}); 
+		UI.render(card); 
 	});
 
 	

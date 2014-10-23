@@ -2,7 +2,7 @@
 
 var UI={
 	
-	render:function(card,callback){
+	render:function(card){
 		var div=document.createElement('div');
 		div.classList.add('card');
 		var d=new Date(card.date);
@@ -26,7 +26,8 @@ var UI={
 		div.appendChild(deleteButton);
 		var board=document.getElementById('board');
 		board.appendChild(div);
-		callback.call(this,deleteButton);
+		deleteButton.addEventListener('click',deleteCard,false);
+		//callback.call(this,deleteButton);
 	},
 	
 	delete : function(elmt){
