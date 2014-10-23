@@ -21,6 +21,22 @@ var model={
 			callback.call(this);
 		}
 		
+	},
+	getUserLocation : function(callback){
+		var userPos={};
+		navigator.geolocation.getCurrentPosition(
+			function(position){
+				userPos.lat=position.coords.latitude;
+				userPos.lng=position.coords.longitude;
+				callback.call(this,userPos);
+			},
+			function(){
+				userPos.lat=48.857713;
+				userPos.lng=2.347271;
+				callback.call(this,userPos);
+			},
+			{enableHighAccuracy:true}
+		);
 	}
 	
 }

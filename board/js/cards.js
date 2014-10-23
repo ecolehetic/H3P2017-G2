@@ -6,6 +6,7 @@ addCard.addEventListener('submit',getCard,false);
 document.getElementById('addLocation').addEventListener('click',addLocation,false);
 
 model.init(function(card){
+	console.log(this);
 	UI.render(card);
 });
 
@@ -43,32 +44,14 @@ function deleteCard (e) {
 
 function addLocation(e){
 	e.preventDefault();
-	var userPos={};
-	navigator.geolocation.getCurrentPosition(
-		function(position){
-			userPos.lat=position.coords.latitude;
-			userPos.lng=position.coords.longitude;
-			drawMap(userPos);
-		},
-		function(){
-			userPos.lat=48.857713;
-			userPos.lng=2.347271;
-			drawMap(userPos);
-		},
-		{enableHighAccuracy:true}
-	);
+	UI.toggleLoader();
+	model.getUserLocation(function(userPos){
+		UI.drawMap(userPos,function(){
+			UI.toggleMap().toggleLoader();
+		});
+	});
 }
 
-function drawMap(userPos){
-	var center=new google.maps.LatLng(userPos.lat,userPos.lng);
-	var settings={
-		zoom:17,
-		center:center,
-		mapTypeId: google.maps.MapTypeId.ROADMAP,
-	};
-	new google.maps.Map(document.querySelector('#map > div'),settings);
-	document.getElementById('map').classList.toggle('on');
-}
 
 
 
