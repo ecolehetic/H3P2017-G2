@@ -9,7 +9,6 @@ document.getElementById('geocoder').addEventListener('submit',geoCoder,false);
 
 
 model.init(function(card){
-	console.log(this);
 	UI.render(card);
 });
 

@@ -2,6 +2,26 @@
 
 var model={
 	
+	load : function(params){
+		return new Promise(function(resolve,reject){
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = ensureReadiness;
+			function ensureReadiness() {
+					if(xhr.readyState === 4) { 
+						if(xhr.status==200){
+							resolve(xhr);
+						}
+						else{
+							reject();
+						}
+					}
+			}
+			xhr.open('GET', params.url, true);
+			xhr.responseType = params.type||'text';
+			xhr.send('');
+		});
+	},
+	
 	init:function(callback){
 		for(var i in localStorage){
 			callback.call(this,JSON.parse(localStorage.getItem(i))); 
@@ -24,6 +44,7 @@ var model={
 	},
 	getUserLocation : function(callback){
 		var userPos={};
+		var self=this;
 		navigator.geolocation.getCurrentPosition(
 			function(position){
 				userPos.lat=position.coords.latitude;
@@ -31,8 +52,13 @@ var model={
 				callback.call(this,userPos);
 			},
 			function(){
-				userPos.lat=48.857713;
-				userPos.lng=2.347271;
+				self.load({url:'js/pos.json',type:'json'}).then(
+					function(xhr){
+						userPos.lat=xhr.response.coords.latitude;
+						userPos.lng=xhr.response.coords.longitude; 
+					},
+					function(){console.log('nulle part'); }
+					);
 				callback.call(this,userPos);
 			},
 			{enableHighAccuracy:true}
@@ -47,8 +73,9 @@ var model={
 				callback.call(this,latLng);
 			}
 		});
-	}
+	},
 	
+
 }
 
 
