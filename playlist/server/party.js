@@ -7,10 +7,14 @@ var party={
 	},
 	
 	listen : function(socket){ 
+		// écoute de l'event getCollection envoyée par le model mobile.
 		socket.on('getCollection',function(){
 			var collection= require('./collection.json');
 			socket.emit('collection',collection); 
 		});
+		
+		
+		
 	}
 	
 };

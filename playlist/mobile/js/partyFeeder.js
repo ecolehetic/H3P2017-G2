@@ -4,13 +4,17 @@ var feeder={
 	
 	init : function(){
 		model.getCollection(function(tracks){
-			console.log(tracks); 
+			UI.render(tracks,function(li){
+				li.addEventListener('touchstart', feeder.start, false);
+				li.addEventListener('touchmove', feeder.move, false);
+				li.addEventListener('touchend', feeder.end, false);
+			});
 		});
 	},
 	
 	move : function(e){
 		e.preventDefault();
-		var offset=e.changedTouches[0].pageX-feeder.start;
+		var offset=e.changedTouches[0].pageX-feeder.startX;
 		if(offset>0){
 			UI.move(this,offset);
 		}
@@ -33,7 +37,7 @@ var feeder={
 	},
 	
 	start : function(e){
-		feeder.start=e.touches[0].pageX;
+		feeder.startX=e.touches[0].pageX;
 	}
 		
 
