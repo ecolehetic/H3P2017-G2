@@ -2,16 +2,51 @@
 
 var partyPlayer={
 	init : function(){
+		var self=this;
+		self.player=document.getElementById('player');
 		model.getPlaylist(function(tracks){
 			for(var i in tracks){
-				UI.render(tracks[i],function(){
-					// do stuff...
+				UI.render(tracks[i],function(li){
+					self.renderTrack(tracks[i]);
 				});
 			}
 			model.listen(function(track){
-				console.log(track); 
+				 self.renderTrack(track);
 			});
 		});
+	},
+	
+	renderTrack : function(track){
+		UI.render(track,function(li){
+			li.addEventListener('click',partyPlayer.playTrack,false);
+		});
+	}
+	
+	playTrack : function(e){
+		e.preventDefault();
+		partyPlayer.player.pause();
+		var track=this.getAttribute('data-tracksrc');
+		partyPlayer.player.setAttribute('src',track);
+		partyPlayer.player.load();
+		partyPlayer.player.play();
+		UI.togglePlaying(this);
 	}
 }
 partyPlayer.init();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
