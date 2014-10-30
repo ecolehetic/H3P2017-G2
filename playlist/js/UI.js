@@ -1,7 +1,7 @@
 "use strict";
 
 var UI={
-	renderPlaylist: function(track,callback){
+	render: function(track,callback){
 			var li=document.createElement('li');
 			li.setAttribute('data-tracksrc',track.src);
 			var a=document.createElement('a');

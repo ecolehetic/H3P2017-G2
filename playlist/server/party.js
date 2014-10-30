@@ -17,7 +17,11 @@ var party={
 		
 		socket.on('add',function(track){
 			party.playlist.push(track);
-			socket.emit('added');		
+			party.io.emit('added',track);		
+		});
+		
+		socket.on('getPlaylist',function(){
+			socket.emit('playlist',party.playlist);
 		});
 		
 		
@@ -29,3 +33,9 @@ var party={
 	
 };
 party.init();
+
+
+
+
+
+
