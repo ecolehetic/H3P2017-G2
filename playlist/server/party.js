@@ -7,7 +7,10 @@ var party={
 	},
 	
 	listen : function(socket){ 
-		
+		socket.on('getCollection',function(){
+			var collection= require('./collection.json');
+			socket.emit('collection',collection); 
+		});
 	}
 	
 };

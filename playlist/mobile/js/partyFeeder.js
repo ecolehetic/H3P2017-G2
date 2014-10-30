@@ -3,7 +3,9 @@
 var feeder={
 	
 	init : function(){
-		
+		model.getCollection(function(tracks){
+			console.log(tracks); 
+		});
 	},
 	
 	move : function(e){
