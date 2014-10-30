@@ -1,0 +1,11 @@
+body, html{height:100%;background-color:#333;font-family: 'Trebuchet MS', sans-serif;font-size:100%;color:#333;}
+ul{list-style:none;width:80%;margin:0 auto;}
+li{background-color:#2E9929;margin:.1em 0;line-height:3em;padding-left:2em;position:relative;left:-1500px;transition:all .8s ease;}
+a, a:visited{color:#333;text-decoration : none;}
+li i{margin-right:1em;}
+li i:before{ content: "\f00f"; }
+.playing{opacity:1;}
+.playing i:before { content: "\f00e"; }
+/*.played {opacity:.2;}*/
+#player{width:100%;}
+li.adding{background-color:#eee;}

@@ -1,0 +1,6 @@
+body, html{height:100%;background-color:#333;font-family: 'Trebuchet MS', sans-serif;font-size:100%;color:#333;}
+ul{list-style:none;width:100%;position:relative;margin:0;padding:0;}
+li{background-color:#eee;;line-height:5em;padding-left:2em;position:relative;-webkit-transition:background 1s ease;margin:.1em 0;}
+li.adding{background-color:#2E9929;}
+.added {position:absolute;left:150px;top:100px;color:#fff;z-index:2;opacity:0;transition:opacity .8s ease,-webkit-transform .8s ease;}
+.added.on{-webkit-transform:scale(4);opacity:1;}
