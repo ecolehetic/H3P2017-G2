@@ -4,6 +4,8 @@ var party={
 		this.io = require('socket.io').listen(3000);
 		// écoute un event connection lorsqu'un script ouvre un socket
 		this.io.on('connection',this.listen);
+		
+		this.playlist = [];
 	},
 	
 	listen : function(socket){ 
@@ -12,6 +14,14 @@ var party={
 			var collection= require('./collection.json');
 			socket.emit('collection',collection); 
 		});
+		
+		socket.on('add',function(track){
+			party.playlist.push(track);
+			socket.emit('added');		
+		});
+		
+		
+		
 		
 		
 		

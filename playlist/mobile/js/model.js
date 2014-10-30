@@ -8,6 +8,25 @@ var model={
 		this.socket.on('collection',function(tracks){
 			callback.call(this,tracks);
 		});
+	},
+	
+	addTrack : function(track,callback){
+		this.socket.emit('add',track);
+		this.socket.on('added',function(){
+			callback.call(this);
+		})
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
