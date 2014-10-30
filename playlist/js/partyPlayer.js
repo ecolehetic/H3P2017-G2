@@ -20,7 +20,11 @@ var partyPlayer={
 		UI.render(track,function(li){
 			li.addEventListener('click',partyPlayer.playTrack,false);
 		});
+<<<<<<< HEAD
 	},
+=======
+	}
+>>>>>>> d99c1cdc645b6b6d749fbc48aea02287d4da7772
 	
 	playTrack : function(e){
 		e.preventDefault();
